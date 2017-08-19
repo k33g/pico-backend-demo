@@ -31,7 +31,9 @@ backend.start({port: port}, res => {
                   console.log("   💔", service.registration, "rep:", data.registration, index)
                   // so we need to delete the service of the directory
                   console.log("   👋", backend.servicesDirectory[keyServices][index])
-
+                  if (index > -1) {
+                    backend.servicesDirectory[keyServices].splice(index, 1)
+                  }
                 }
                 
               })
