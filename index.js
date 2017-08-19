@@ -16,22 +16,26 @@ backend.start({port: port}, res => {
     Success: port => {
       console.log(`🌍 pico discovery backend server is started on ${port}`)
       
-      function clean() {
+      function updateStatusOfServices() {
         for(var keyServices in backend.servicesDirectory) { 
           console.log(keyServices, ":") 
-          //console.log(" -", backend.servicesDirectory[keyServices])
           backend.servicesDirectory[keyServices].forEach(service => {
             let client = new Client({service: service})
             client.healthCheck()
-              .then(data => {
-                console.log(data)
-                service.status = data.status
+              .then(serviceHealth => {
+                if(serviceHealth.status=="DOWN") {
+                  console.log(`👎 The service with the id ${serviceHealth.registration} is marked to "DOWN"`)
+                  console.log(`It probably belongs to a stopped/removed VM or container`)
+                } else {
+                  console.log(`👍 The service with the id ${serviceHealth.registration} is marked to "UP"`)
+                }
+                // updating the status in the services lis
+                service.status = serviceHealth.status
               })
           })
         }
-      } // end function clean()
-      let t = setInterval(clean, 5000);
-
+      } // end function updateStatusOfServices()
+      setInterval(updateStatusOfServices, 5000);
     }
   })
 })
