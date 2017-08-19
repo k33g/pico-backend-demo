@@ -85,6 +85,7 @@ class Client {
 
     var path = this.service.registration !== undefined ? `/healthcheck` + this.service.registration : `/healthcheck`
     
+    console.log("😈", path)
 
     return fetch({
       protocol: serviceurl.protocol.slice(0, -1), // remove ":"
@@ -234,6 +235,8 @@ class Service {
           let p = request.params[0]
           if(this.record.registration!==p) {
             this.record.status = "DOWN"
+          } else {
+            this.record.status = "UP"
           }
           response.sendJson({
             status: this.record.status, 
