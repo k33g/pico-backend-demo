@@ -25,6 +25,7 @@ backend.start({port: port}, res => {
             client.healthCheck()
               .then(data => {
                 console.log(data)
+                service.status = data.status
               })
           })
         }
