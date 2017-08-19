@@ -24,21 +24,7 @@ backend.start({port: port}, res => {
             let client = new Client({service: service})
             client.healthCheck()
               .then(data => {
-                
-                  if(service.registration == data.registration) {
-                    console.log("   ❤️", service.registration, "rep:", data.registration)
-                  } else {
-                    let index = backend.servicesDirectory[keyServices].indexOf(service)
-                    console.log("   💔", service.registration, "rep:", data.registration, index)
-                    // so we need to delete the service of the directory
-                    console.log("   👋", backend.servicesDirectory[keyServices][index])
-
-                    backend.servicesDirectory[keyServices][index] = "🤖"
-                    //if (index > -1) {
-                    //  backend.servicesDirectory[keyServices].splice(index, 1)
-                    //}
-                  }
-                
+                console.log(data)
               })
           })
         }
