@@ -12,3 +12,7 @@ npm install git+https://git@github.com/k33g/pico.git --save
 
 > I only want to try to improve the delay of deplyment
 
+## On Clever Cloud
+
+- http://pico.backend.cleverapps.io/
+- first deployment 32 seconds
