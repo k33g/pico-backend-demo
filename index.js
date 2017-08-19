@@ -15,6 +15,7 @@ backend.start({port: port}, res => {
     Failure: error => console.log("😡 Houston? We have a problem!"),
     Success: port => {
       console.log(`🌍 pico discovery backend server is started on ${port}`)
+      
       function clean() {
         for(var keyServices in backend.servicesDirectory) { 
           console.log(keyServices, ":") 
@@ -23,7 +24,16 @@ backend.start({port: port}, res => {
             let client = new Client({service: service})
             client.healthCheck()
               .then(data => {
-                console.log("   ❤️", service.registration, "rep:", data.registration)
+                if(service.registration == data.registration) {
+                  console.log("   ❤️", service.registration, "rep:", data.registration)
+                } else {
+                  let index = backend.servicesDirectory[keyServices].indexOf(service)
+                  console.log("   💔", service.registration, "rep:", data.registration, index)
+                  // so we need to delete the service of the directory
+                  console.log("   👋", backend.servicesDirectory[keyServices][index])
+
+                }
+                
               })
           })
         }
