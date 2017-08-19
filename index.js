@@ -1,4 +1,4 @@
-const {DiscoveryBackendServer} = require('./pico')
+const {DiscoveryBackendServer, Client} = require('./pico')
 
 /**
  * On the Clever Cloud platform
