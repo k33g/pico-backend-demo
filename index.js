@@ -27,8 +27,7 @@ backend.start({port: port}, res => {
         updatedService.when({
           Failure: failure => console.log(failure.error, failure.service),
           Success: result => {
-            // Success.of({record, service})
-            console.log(result.record, result.service)
+            console.log(result.record)
           }
         })
       }})
@@ -36,3 +35,4 @@ backend.start({port: port}, res => {
     }
   })
 })
+
