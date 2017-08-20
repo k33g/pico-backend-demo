@@ -27,8 +27,8 @@ backend.start({port: port}, res => {
         updatedService.when({
           Failure: failure => console.log(failure.error, failure.service),
           Success: result => {
-            // f(Success.of({healthStatus, service}))
-            console.log(result.healthStatus)
+            // Success.of({record, service})
+            console.log(result.record, result.service)
           }
         })
       }})
