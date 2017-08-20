@@ -25,6 +25,7 @@ class Failures extends Wrapper {}
 class HttpException extends Wrapper {}
 
 let fetch = (options) => {
+  console.log("options", options)
   return new Promise((resolve, reject) => {
     const lib = require(options.protocol)
     options.protocol+=":"
