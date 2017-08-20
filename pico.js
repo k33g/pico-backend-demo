@@ -25,7 +25,7 @@ class Failures extends Wrapper {}
 class HttpException extends Wrapper {}
 
 let fetch = (options) => {
-  console.log("options", options)
+  console.log("🐶 options", options)
   return new Promise((resolve, reject) => {
     const lib = require(options.protocol)
     options.protocol+=":"
@@ -67,6 +67,10 @@ class Client {
 
   healthCheck() {
     let serviceurl = url.parse(this.service.domain)
+
+    console.log("👋 serviceurl", serviceurl)
+
+    console.log()
     
     return fetch({
       protocol: serviceurl.protocol.slice(0, -1), // remove ":"
