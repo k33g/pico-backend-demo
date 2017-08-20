@@ -27,7 +27,9 @@ backend.start({port: port}, res => {
         updatedService.when({
           Failure: failure => console.log(failure.error, failure.service),
           Success: result => {
-            console.log(result.record)
+            let age = (result.record.date.lastUpdate.getTime() - new Date()) / 1000
+            
+            console.log("⚠️ age since last update:", age, "record", result.record, )
           }
         })
       }})
