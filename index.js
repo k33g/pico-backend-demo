@@ -15,7 +15,22 @@ backend.start({port: port}, res => {
     Failure: error => console.log("😡 Houston? We have a problem!"),
     Success: port => {
       console.log(`🌍 pico discovery backend server is started on ${port}`)
-      
+
+      backend.checkServices({interval: 5000, f: updatedService => {
+        updatedService.when({
+          Failure: failure => console.log(failure.error, failure.service),
+          Success: service => {
+            console.log(`👋 🍄 this service ${service.registration} is ${service.status}`)
+          }
+        })
+      }})
+
+    }
+  })
+})
+
+/*
+
       function updateStatusOfServices() {
         for(var keyServices in backend.servicesDirectory) { 
           console.log(keyServices, ":") 
@@ -36,11 +51,9 @@ backend.start({port: port}, res => {
         }
       } // end function updateStatusOfServices()
       setInterval(updateStatusOfServices, 5000);
-    }
-  })
-})
 
-/*
+
+
   // remove phantom services
   watchServiceList({interval}) {
     let servicesList = this.servicesDirectory
