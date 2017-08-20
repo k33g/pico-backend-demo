@@ -25,7 +25,6 @@ backend.start({port: port}, res => {
         updatedService.when({
           Failure: failure => console.log(failure.error, failure.service),
           Success: service => {
-            console.log(`👋 🍄 this service ${service.registration} is ${service.status}`)
             check(service).when({
               Down: service => console.log(`🍄 this service ${service.registration} is DOWN, you can remove it of the list`),
               Up: service => console.log(`👋 this service ${service.registration} is UP`)
