@@ -10,10 +10,12 @@ let port = process.env.PORT || 9099;
 
 let backend = new DiscoveryBackendServer()
 
+/*
 class Down extends Wrapper {}
 class Up extends Wrapper {}
 
 let check = service => service.status=="DOWN" ? Down.of(service) : Up.of(service)
+*/
 
 backend.start({port: port}, res => {
   res.when({
@@ -24,15 +26,9 @@ backend.start({port: port}, res => {
       backend.checkServices({interval: 5000, f: updatedService => {
         updatedService.when({
           Failure: failure => console.log(failure.error, failure.service),
-          Success: service => {
-            check(service).when({
-              Down: service => console.log(
-                `🍄 this service ${service.registration} is DOWN on instance ${service.instance.id}, you can remove it of the list`
-              ),
-              Up: service => console.log(
-                `👋 this service ${service.registration} is UP on instance ${service.instance.id}`
-              )
-            })
+          Success: result => {
+            // f(Success.of({healthStatus, service}))
+            console.log(result.healthStatus)
           }
         })
       }})
