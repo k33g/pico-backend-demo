@@ -26,8 +26,12 @@ backend.start({port: port}, res => {
           Failure: failure => console.log(failure.error, failure.service),
           Success: service => {
             check(service).when({
-              Down: service => console.log(`🍄 this service ${service.registration} is DOWN, you can remove it of the list`),
-              Up: service => console.log(`👋 this service ${service.registration} is UP`)
+              Down: service => console.log(
+                `🍄 this service ${service.registration} is DOWN on instance ${service.instance.id}, you can remove it of the list`
+              ),
+              Up: service => console.log(
+                `👋 this service ${service.registration} is UP on instance ${service.instance.id}`
+              )
             })
           }
         })
